@@ -8,3 +8,7 @@ Need to clear confusion regarding
 a. Your implementation must not use any of the programming language's inbuilt regular expression parsing/evaluation libraries/classes.
 b. Your implementation may use any other libraries/classes available in the standard JDK and JUnit, but no other external libraries/classes
 regex or any other ds cannot be used ?
+
+
+Issue 3
+Need to confirm that (ab)*|cc* .. how does the diagram looks like ? cc* seems to be ok... but (ab)* will it redirect to itself then to ending state ? there is a bit confusion
