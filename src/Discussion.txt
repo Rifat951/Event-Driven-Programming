@@ -9,6 +9,18 @@ a. Your implementation must not use any of the programming language's inbuilt re
 b. Your implementation may use any other libraries/classes available in the standard JDK and JUnit, but no other external libraries/classes
 regex or any other ds cannot be used ?
 
+----- Your task is to implement a Regex engine, so using the built-in one in Java is not allowed; hopefully this is self evident.
+As discussed in today’s lecture, you are welcome to use it as part of testing, but only as part of testing, not in your implementation.
+In terms of other data structures, the vanilla JDK includes a huge range of different data structures, classes and methods that you are welcome to use. You should not need any further libraries beyond those.
+
 
 Issue 3
-Need to confirm that (ab)*|cc* .. how does the diagram looks like ? cc* seems to be ok... but (ab)* will it redirect to itself then to ending state ? there is a bit confusion
+Need to confirm that (ab)*|cc* .. how does the diagram looks like ? cc* seems to be ok... but (ab)* will it redirect to itself then to ending state ? there is a bit confusion --- the solution was found. picture will be uploaded
+
+Issue 4 (By Eric)
+1. Is that we have to first construct epsilon-NFA table, then converting to NFA, then converting to DFA? Finally, is that we need to use the DFA to check if the subsequent input can reach an accepting state or not? 
+--- There's a couple approaches you can take here; you can generate an ɛ-NFA, then down-convert to a DFA, or you can program your system to evaluate the ɛ-NFA on the fly.
+
+
+Issue -5 
+How to construct the E-NFA table ?
