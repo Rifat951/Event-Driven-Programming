@@ -1,5 +1,3 @@
-
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Regex {
@@ -26,11 +24,10 @@ public class Regex {
             System.out.println(strIndex);
         }
 
-
+        // input seems to be okay///
         // 1. transform the expression to tree(usage of dfs maybe) ?
         // 2. tree to transition table(multi array) ?
         // 3 display the transition table
-        //
     }
 
 }
