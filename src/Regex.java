@@ -19,18 +19,12 @@ public class Regex {
         }
 //        System.out.println(Arrays.toString(str));
 
-        System.out.println("\nResults: ");
-        //for-each loop to print the string
-        for(String strIndex: str)
-        {
-            System.out.println(strIndex);
-        }
+        String str_tree = str[0];
+        System.out.println(str_tree);
 
+        // implement graph to regular expression
+        // use enum class in order to record the transition states
 
-        // 1. transform the expression to tree(usage of dfs maybe) ?
-        // 2. tree to transition table(multi array) ?
-        // 3 display the transition table
-        //
     }
 
 }
