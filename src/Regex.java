@@ -1,6 +1,8 @@
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+
 
 public class Regex {
 
@@ -13,24 +15,33 @@ public class Regex {
         String[] str = new String [input.nextInt()];
         // input string
         input.nextLine();
+
+        // transform this into array where we will put the first element through diagram, table, rest of the array elements will be used for displaying output only
         for (int index = 0; index < str.length; index++)
         {
             str[index] = input.nextLine();
         }
+
+        String str_tree = str[0];
+        System.out.println(str_tree);
+
+
+        // regular expression to graph
+        // otherwise we cannot calculate the edges or e-nfa
+
+
+
+
+
 //        System.out.println(Arrays.toString(str));
 
-        System.out.println("\nResults: ");
-        //for-each loop to print the string
-        for(String strIndex: str)
-        {
-            System.out.println(strIndex);
-        }
+//        System.out.println("\nResults: ");
+//        //for-each loop to print the string
+//        for(String strIndex: str)
+//        {
+//            System.out.println(str[strIndex]);
+//        }
 
-
-        // 1. transform the expression to tree(usage of dfs maybe) ?
-        // 2. tree to transition table(multi array) ?
-        // 3 display the transition table
-        //
     }
 
 }
