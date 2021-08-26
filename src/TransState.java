@@ -31,6 +31,23 @@ public class TransState {
         }
 
     }
+    
+    
+        // transition between states
+
+    public void Transition( TransState traversal, char key ){
+
+        ArrayList<TransState> valueofTranStates = this.nextState.get(key);
+
+        if(valueofTranStates == null){
+            valueofTranStates = new ArrayList<TransState>();
+            this.nextState.put(key , valueofTranStates);
+        }
+        valueofTranStates.add(traversal);
+        System.out.println(valueofTranStates);
+
+    }
+    
 
 
     // constructor of TranState for NFA
