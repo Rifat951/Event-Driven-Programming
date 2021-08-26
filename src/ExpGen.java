@@ -154,7 +154,7 @@ public class ExpGen {
         NFA firstCharofNfa = StackedValofNfa.pop();
         NFA secondCharofNfa = StackedValofNfa.pop();
 
-
+        // states for merge method
         TransState startstate = new TransState (IdStates++);
         TransState endstate = new TransState (IdStates++);
 
@@ -181,6 +181,22 @@ public class ExpGen {
     }
 
     public  static void repeatation(){
+
+        NFA tempNfa = StackedValofNfa.pop();
+        TransState StartStateRep = new TransState(IdStates++);
+        TransState EndStateRep = new TransState(IdStates++);
+
+        // same as merge method
+        StartStateRep.Transition(EndStateRep, 'e');
+        StartStateRep.Transition(tempNfa.getNfa().getFirst(),'e');
+
+        tempNfa.getNfa().getLast().Transition(EndStateRep,'e');
+        tempNfa.getNfa().getLast().Transition(tempNfa.getNfa().getFirst(),'e');
+
+        tempNfa.getNfa().addFirst(StartStateRep);
+        tempNfa.getNfa().addLast(EndStateRep);
+
+        StackedValofNfa.push(tempNfa);
 
     }
 
