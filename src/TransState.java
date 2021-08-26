@@ -18,7 +18,17 @@ public class TransState {
     public TransState(Set<TransState> statesdfa, int ID){
         this.setStates(statesdfa);
         this.setIdOfStates(IdOfStates);
+        this.setNextState(new HashMap<Character, ArrayList<TransState>>());
+
+        for(TransState indexofStates : statesdfa){
+            if(indexofStates.isAccpetState()){
+                this.setAccpetState(true);
+                break;
+            }
+        }
+
     }
+
     public Set <TransState> getStates() {
         return statesdfa;
     }
@@ -39,6 +49,15 @@ public class TransState {
 
     public Map<Character, ArrayList<TransState>> getNextState(){
         return nextState;
+    }
+
+    private boolean isAccpetState() {
+        return accpetState;
+    }
+
+
+    public void setAccpetState(boolean accpetState){
+        this.accpetState = accpetState;
     }
 
 }
