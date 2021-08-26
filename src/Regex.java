@@ -8,6 +8,19 @@ import java.util.Scanner;
 public class Regex {
 
     public static void main(String[] args) throws Exception {
+        
+        
+        try {
+            File createfile = new File("D:/testpath/test1.txt");
+            if (createfile.createNewFile()) {
+                System.out.println("File created: " + createfile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("fileAn error occurred.");
+            e.printStackTrace();
+        }
 
         String writefile = setpathforInput();
         writeintoffile(writefile);
