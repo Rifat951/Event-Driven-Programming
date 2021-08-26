@@ -26,6 +26,16 @@ public class ExpGen {
             }
         }
     }
+    
+    
+     // RegExpression string value will be parsed here
+    public static NFA NfaConveter(String RegExpression){
+
+            // RegExpression need to have a function which can concat between symbols eg. ()() like this
+
+    }
+    
+    
 
     public static void merge(){
         
