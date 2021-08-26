@@ -4,13 +4,27 @@ Instead of implementing a whole class in one go
 
 
 task -1
-a.Let us implement a e-nfa first for just one expression test
-b.create the transition table
-c. display the transition table (need to figure it out)
+insert the scanned details to file
+
+// read from file path and store it to arrylist
+
+Scanner s = new Scanner(new File("filepath"));
+ArrayList<String> list = new ArrayList<String>();
+while (s.hasNext()){
+    list.add(s.next());
+}
+s.close();
+
+
 
 task -2
-a. for any regular expression we need to implement
+read those data from the file
 
+task -3
+create the fsa ( which will include dfa/nfa)  and states
 
+task -4
+create the regular expressions
 
-so we rewrite from scratch again i assume
+task -5
+we will see
