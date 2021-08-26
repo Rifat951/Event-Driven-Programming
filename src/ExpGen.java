@@ -11,7 +11,7 @@ public class ExpGen {
     private static Stack<NFA> StackedValofNfa = new Stack<NFA>();
     private static  int IdStates = 0;
 
-    private  static void SpeicalCharOperation{
+    private static void SpeicalCharOperation(){
 
         char tempchar;
         if(ExpGen.speicialChars.size() > 0){
@@ -47,6 +47,8 @@ public class ExpGen {
         }
     }
 
+
+    // method for inserting into the stack
     public static void inserttoStack(char RegExpressionChar){
         TransState firstState = new TransState(IdStates++);
         TransState secondState = new TransState(IdStates++);
@@ -85,8 +87,29 @@ public class ExpGen {
             // we need a method to insert into the stacks of our NFA
 
             for (int startingIndex = 0 ; startingIndex < RegExpression.length(); startingIndex++){
+                char tempchar = RegExpression.charAt(startingIndex);
+                if(isChar(tempchar)){
+                    inserttoStack(tempchar);
+                }
+                else if(speicialChars.isEmpty() || tempchar == '('){
+                    speicialChars.push(tempchar);
+                }
+                else if(tempchar == ')'){
+                    while (speicialChars.get(speicialChars.size()-1) != '('){
+                        SpeicalCharOperation();
+                    }
+                }
 
             }
+
+            while (!StackedValofNfa.isEmpty()){
+                SpeicalCharOperation();
+            }
+
+            NFA FullNfa = StackedValofNfa.pop();
+            FullNfa.getNfa().get(FullNfa.getNfa().size()-1).setAccpetState(true);
+
+            return FullNfa;
 
     }
 
@@ -136,8 +159,24 @@ public class ExpGen {
         TransState endstate = new TransState (IdStates++);
 
         // Set transition table begin and end of each SubNfa
-        startstate.Transition(endstate, 'e');
-        // well we nee to get NFA, otherwise cannot progress.
+        startstate.Transition(firstCharofNfa.getNfa().getFirst(),'e');
+        startstate.Transition(secondCharofNfa.getNfa().getFirst(),'e' );
+        //endstate
+        firstCharofNfa.getNfa().getLast().Transition(endstate,'e');
+        secondCharofNfa.getNfa().getLast().Transition(endstate,'e');
+
+
+        //insert all the start states to end states and  the states from second to first and in order
+        firstCharofNfa.getNfa().addLast(startstate);
+        secondCharofNfa.getNfa().addLast(endstate);
+
+        for( TransState states : secondCharofNfa.getNfa()){
+            firstCharofNfa.getNfa().addLast(states);
+        }
+
+        // put them back
+        StackedValofNfa.push(firstCharofNfa);
+
 
     }
 
