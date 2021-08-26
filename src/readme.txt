@@ -21,7 +21,7 @@ task -2
 read those data from the file
 
 task -3
-create the states
+create the fsa ( which will include dfa/nfa)  and states
 
 task -4
 create the regular expressions
