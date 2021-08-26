@@ -1,51 +1,71 @@
 
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Regex {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        // need to input three line of strings
-        Scanner input = new Scanner(System.in);
-        System.out.println("Number of lines we want to display (int) : ");
-        // split line
-        String[] str = new String [input.nextInt()];
-        // input string
-        input.nextLine();
-        for (int index = 0; index < str.length; index++)
-        {
-            str[index] = input.nextLine();
+        String writefile = setpathforInput();
+        writeintoffile(writefile);
+        System.out.println("File Created Successfully");
+
+        //D:\testpath\test.txt
+
+        File myObj = new File(setpathforInput());
+
+        Scanner s = new Scanner(myObj);
+
+
+        // Read the regular expression
+        String regular = s.next();
+        //System.out.println(regular);
+        
+        // Read all the expressions to apply the regular expression
+        ArrayList<String> arr = new ArrayList<String>();
+        while (s.hasNext()) {
+            arr.add(s.next());
         }
-//        System.out.println(Arrays.toString(str));
-
-        String str_tree = str[0];
-        System.out.println(str_tree);
-
-        // implement graph to regular expression
-        // use enum class in order to record the transition states
+        System.out.println(arr);
     }
 
+    static String setpathforInput() {
+        Scanner read = new Scanner(System.in);
 
+        System.out.println("Enter the Path You want to Set \n\t");
+        String path;
+        //  System.out.println(path);
+        return read.nextLine();
 
-    public static boolean accept(String str){
-
-        Set<TranState> currentStateofNode = new HashSet<>();
-        for(int index = 0; index < str.length(); index++){
-            currentStateofNode = currentStateofNode + str.charAt(index); // we cannot write + directly this is a issue
-            // if the currentstate matches with any of the states
-        }
-        // return the state
-        return currentStateofNode.stream().anyMatch(tranState -> tranState.accept);
     }
 
-    enum TranState{
-        Q0 = true;
-
-        // e-enclosure of the state
-        // declare a function maybe ?
-        // only applicable for (ab)* which is not ok
-
+    static void writeintoffile(String path) throws Exception {
+        Scanner read = new Scanner(System.in);
+        FileOutputStream fos = new FileOutputStream(path);
+        System.out.println("Enter character  ('!') to stop writing : ");
+        int char_data;
+        String data;
+        byte b[];
+        boolean flag = true;
+        byte eof = (char) ('!');
+        while (true) {
+            data = read.nextLine();
+            b = data.getBytes();
+            for (int i = 0; i < b.length; i++) {
+                if (b[i] == eof) {
+                    flag = false;
+                    break;
+                }
+                fos.write(b[i]);
+            }
+            if (flag == false)
+                break;
+            fos.write((byte) ('\n'));
+        }
+        fos.close();
     }
 
 }
