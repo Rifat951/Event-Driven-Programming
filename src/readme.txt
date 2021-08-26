@@ -4,7 +4,7 @@ Instead of implementing a whole class in one go
 
 
 task -1
-insert the scanned details to file
+insert the scanned details to file --- ok
 
 // read from file path and store it to arrylist
 
@@ -17,14 +17,14 @@ s.close();
 
 
 
-task -2
+task -2 ----- ok
 read those data from the file
 
-task -3
+task -3 ---- ok
 create the fsa ( which will include dfa/nfa)  and states
 
 task -4
 create the regular expressions
 
 task -5
-we will see
+validation was also in regex.. so we need a find a way to user it... otherwise true/false will not come
