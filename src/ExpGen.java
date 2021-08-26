@@ -200,5 +200,47 @@ public class ExpGen {
 
     }
 
+    // implementing DFA
+
+    //first we need to convert nfa to dfa means removing the e-closures and need to find a way for changed states
+
+
+    private static Set<TransState> FirstSet = new HashSet<TransState>();
+    private static Set<TransState> SecondSet = new HashSet<TransState>();
+
+    private static void EliminateETrans(){
+        Stack<TransState> eliminateval = new Stack<TransState>();
+        SecondSet = FirstSet;
+        for(TransState trns : FirstSet){
+            eliminateval.push(trns);
+        }
+        while(!eliminateval.isEmpty()){
+            TransState trns_new = eliminateval.pop();
+            ArrayList<TransState> eclosure = trns_new.displayTransitionStates('e');
+
+            for( TransState trns_second : eclosure){
+                if(!SecondSet.contains(trns_second)){
+                    SecondSet.add(trns_second);
+                    eliminateval.push(trns_second)
+                }
+            }
+        }
+    }
+
+    private static void changeStates(Character inputchar, Set<TransState> transStates, Set<TransState> stateSet){
+        ArrayList<TransState> temparr =  new ArrayList<TransState>();
+
+        for(TransState trns_first : transStates){
+            temparr.add(trns_first);
+        }
+        for (TransState trns_outerloop : temparr){
+            ArrayList<TransState> dispStates = trns_outerloop.displayTransitionStates(inputchar);
+            for(TransState trns_innerloop : dispStates){
+                stateSet.add(trns_innerloop);
+            }
+        }
+    }
+
+
 
 }
