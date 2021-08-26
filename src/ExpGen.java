@@ -28,6 +28,17 @@ public class ExpGen {
     }
     
     
+    // since we are focusing on the input of a,b,c
+    public static boolean isChar(char inputchar){
+        if(inputchar == 'a' || inputchar == 'b' || inputchar == 'c') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
      // RegExpression string value will be parsed here
     public static NFA NfaConveter(String RegExpression){
 
