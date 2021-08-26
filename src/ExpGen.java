@@ -28,13 +28,29 @@ public class ExpGen {
             }
         }
     }
+    
+    
 
+    private static boolean OperandPrior(char firstchar, Character secondChar){
+        if( firstchar == secondChar || secondChar == '*' ||secondChar == '+' || secondChar == '|'){
+            return true;
+        }
+        else if(firstchar == '*' || firstchar == '+' || firstchar == '|'){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }    
+    
+    
+    
     // RegExpression string value will be parsed here
 
     public static NFA NfaConveter(String RegExpression){
 
             // RegExpression need to have a function which can concat between symbols eg. ()() like this
-
+            RegExpression = ConcatInator(RegExpression);
 
     }
 
