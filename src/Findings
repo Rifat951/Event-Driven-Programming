@@ -1,0 +1,23 @@
+public void computeFeatureVectorForToken(int i) {
+	Token curToken = tokens.get(i);
+	if ( curToken.getType()==Token.EOF ) return;
+
+	int[] features = getFeatures(i);
+
+	int injectNL_WS = getInjectWSCategory(tokens, i);
+
+	int aligned = -1; // "don't care"
+	if ( (injectNL_WS&0xFF)==CAT_INJECT_NL ) {
+		TerminalNode node = tokenToNodeMap.get(curToken);
+		aligned = getAlignmentCategory(doc, node, indentSize);
+	}
+
+	// track feature -> injectws, align decisions for token i
+	corpus.addExemplar(doc, features, injectNL_WS, aligned);
+}
+
+// from here we can see.. toke, currenttoken, lexer can be used.
+// Need to find more details about this lexer
+
+
+
