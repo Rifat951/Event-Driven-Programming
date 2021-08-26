@@ -44,6 +44,7 @@ public class Regex {
 
         // e-enclosure of the state
         // declare a function maybe ?
+        // only applicable for (ab)* which is not ok
 
     }
 
