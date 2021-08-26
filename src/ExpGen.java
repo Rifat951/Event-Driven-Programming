@@ -28,6 +28,19 @@ public class ExpGen {
     }
 
     public static void merge(){
+        
+        NFA firstCharofNfa = StackedValofNfa.pop();
+        NFA secondCharofNfa = StackedValofNfa.pop();
+
+
+        TransState startstate = new TransState (IdStates++);
+        TransState endstate = new TransState (IdStates++);
+
+        // Set transition table begin and end of each SubNfa
+        startstate.Transition(endstate, 'e');
+        // well we nee to get NFA, otherwise cannot progress.
+
+    }
     }
 
     public  static void repeatation(){
