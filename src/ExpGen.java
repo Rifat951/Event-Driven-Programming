@@ -36,6 +36,17 @@ public class ExpGen {
     }
     
     
+    public static String ConcatInator(String RegExpression){
+        String str = new String("");
+
+        for(int indexofString = 0 ; indexofString < RegExpression.length()-1 ; indexofString++){
+            //need a boolean method because we might need to input some chars at the same time
+                if(booleans of chars)
+        }
+    }
+    
+    
+    
 
     public static void merge(){
         
