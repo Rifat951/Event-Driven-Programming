@@ -1,3 +1,4 @@
+import java.lang.invoke.VarHandle;
 import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 public class TransState {
 
     //we will separate the states of DFA and NFA
+
+
 
         //transition states for DFA
     private Set<TransState> statesdfa;
@@ -28,6 +31,33 @@ public class TransState {
         }
 
     }
+
+
+    // constructor of TranState for NFA
+    public TransState(int idOfStates){
+        this.setStates(statesdfa);
+//        this.setIdOfStates(IdOfStates);
+        this.setNextState(new HashMap<Character, ArrayList<TransState>>());
+        this.setAccpetState(false);
+    }
+
+
+
+    // transition between states
+
+    public void Transition( TransState traversal, char key ){
+
+        ArrayList<TransState> valueofTranStates = this.nextState.get(key);
+
+        if(valueofTranStates == null){
+            valueofTranStates = new ArrayList<TransState>();
+            this.nextState.put(key , valueofTranStates);
+        }
+        valueofTranStates.add(traversal);
+        System.out.println(valueofTranStates);
+
+    }
+
 
     public Set <TransState> getStates() {
         return statesdfa;
