@@ -1,5 +1,3 @@
-import java.lang.invoke.VarHandle;
-import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -89,6 +87,16 @@ public class TransState {
 
     public void setAccpetState(boolean accpetState){
         this.accpetState = accpetState;
+    }
+
+
+    public ArrayList<TransState> displayTransitionStates(char inputchar){
+        if(this.nextState.get(inputchar) == null ){
+            return new ArrayList<TransState>();
+        }
+        else {
+            return this.nextState.get(inputchar);
+        }
     }
 
 }

@@ -1,18 +1,22 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.Stack;
 
 public class ExpGen {
 
 
-    private static Stack<Character> speicalChars = new Stack<Character>();
+    private static Stack<Character> speicialChars = new Stack<Character>();
     private static Stack<NFA> StackedValofNfa = new Stack<NFA>();
     private static  int IdStates = 0;
 
     private  static void SpeicalCharOperation{
 
         char tempchar;
-        if(ExpGen.speicalChars.size() > 0){
+        if(ExpGen.speicialChars.size() > 0){
 
-            tempchar = speicalChars.pop();
+            tempchar = speicialChars.pop();
             //usage of a switchcase
             switch (tempchar){
                 case('|'):
@@ -29,12 +33,60 @@ public class ExpGen {
         }
     }
 
+    // */|/+ needs to be prioritized
+
+    private static boolean OperandPrior(char firstchar, Character secondChar){
+        if( firstchar == secondChar || secondChar == '*' ||secondChar == '+' || secondChar == '|'){
+            return true;
+        }
+        else if(firstchar == '*' || firstchar == '+' || firstchar == '|'){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public static void inserttoStack(char RegExpressionChar){
+        TransState firstState = new TransState(IdStates++);
+        TransState secondState = new TransState(IdStates++);
+
+        firstState.Transition(secondState, RegExpressionChar);
+
+        // for adding temp state of NFA we will take a temp object
+        NFA tempNfa = new NFA();
+        tempNfa.getNfa().addLast(firstState);
+        tempNfa.getNfa().addLast(secondState);
+
+        // it will insert all the data
+        StackedValofNfa.push(tempNfa);
+
+    }
+
+
     // RegExpression string value will be parsed here
 
     public static NFA NfaConveter(String RegExpression){
 
             // RegExpression need to have a function which can concat between symbols eg. ()() like this
+            RegExpression = ConcatInator(RegExpression);
 
+            //(ab)*|c+
+            speicialChars.add('a');
+            speicialChars.add('b');
+            speicialChars.add('c');
+
+
+            // remove all the elements from stacks
+            StackedValofNfa.clear();
+            speicialChars.clear();
+
+
+            // we need a method to insert into the stacks of our NFA
+
+            for (int startingIndex = 0 ; startingIndex < RegExpression.length(); startingIndex++){
+
+            }
 
     }
 
