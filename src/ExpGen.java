@@ -249,7 +249,6 @@ public class ExpGen {
     public  static DFA DfaConverter(NFA ParsedNfa){
 
         DFA tempDfa = new DFA();
-
         IdStates = 0;
         LinkedList<TransState> interStates = new LinkedList<TransState>();
 
