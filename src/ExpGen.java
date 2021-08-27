@@ -7,17 +7,14 @@ import java.util.Stack;
 
 public class ExpGen {
 
-
     private static Stack<Character> speicialChars = new Stack<Character>();
     private static Stack<NFA> StackedValofNfa = new Stack<NFA>();
     private static  int IdStates = 0;
 
     private static void SpeicalCharOperation(){
 
-        char tempchar;
         if(ExpGen.speicialChars.size() > 0){
-
-            tempchar = speicialChars.pop();
+            char tempchar = speicialChars.pop();
             //usage of a switchcase
             switch (tempchar){
                 case('|'):
@@ -26,8 +23,11 @@ public class ExpGen {
                 case ('*'):
                     repeatation();
                     break;
+                case ('.'):
+                    concat();
+                    break;
                 default:
-                    System.out.println("Unknown Symbols");
+                    System.out.println("Unknown Symbols mara kha");
                     System.exit(1);
                     break;
             }
@@ -68,49 +68,61 @@ public class ExpGen {
 
 
     // RegExpression string value will be parsed here
+    
+    
+    private static Set<Character> input_val = new HashSet<Character>();
 
     public static NFA NfaConveter(String RegExpression){
 
-            // RegExpression need to have a function which can concat between symbols eg. ()() like this
-            RegExpression = ConcatInator(RegExpression);
+        // RegExpression need to have a function which can concat between symbols eg. ()() like this
+        RegExpression = ConcatInator (RegExpression);
 
-            //(ab)*|c+
-            speicialChars.add('a');
-            speicialChars.add('b');
-            speicialChars.add('c');
+        //(ab)*|c+
+        input_val.add('a');
+        input_val.add('b');
+        input_val.add('c');
+
+        // remove all the elements from stacks
+        StackedValofNfa.clear();
+        speicialChars.clear();
 
 
-            // remove all the elements from stacks
-            StackedValofNfa.clear();
-            speicialChars.clear();
+        // we need a method to insert into the stacks of our NFA
 
+        for (int i = 0 ; i < RegExpression.length(); i++) {
 
-            // we need a method to insert into the stacks of our NFA
+            if (isChar (RegExpression.charAt(i))) {
+                inserttoStack(RegExpression.charAt(i));
 
-            for (int startingIndex = 0 ; startingIndex < RegExpression.length(); startingIndex++){
-                char tempchar = RegExpression.charAt(startingIndex);
-                if(isChar(tempchar)){
-                    inserttoStack(tempchar);
+            } else if (speicialChars.isEmpty()) {
+                speicialChars.push(RegExpression.charAt(i));
+
+            } else if (RegExpression.charAt(i) == '(') {
+                speicialChars.push(RegExpression.charAt(i));
+
+            } else if (RegExpression.charAt(i) == ')') {
+                while (speicialChars.get(speicialChars.size()-1) != '(') {
+                    SpeicalCharOperation();
                 }
-                else if(speicialChars.isEmpty() || tempchar == '('){
-                    speicialChars.push(tempchar);
-                }
-                else if(tempchar == ')'){
-                    while (speicialChars.get(speicialChars.size()-1) != '('){
-                        SpeicalCharOperation();
-                    }
-                }
 
+                // '(' left parenthesis pops out
+                speicialChars.pop();
+
+            } else {
+                while (!speicialChars.isEmpty() &&
+                        OperandPrior (RegExpression.charAt(i), speicialChars.get(speicialChars.size() - 1)) ){
+                    SpeicalCharOperation ();
+                }
+                speicialChars.push(RegExpression.charAt(i));
             }
+        }
 
-            while (!StackedValofNfa.isEmpty()){
-                SpeicalCharOperation();
-            }
 
-            NFA FullNfa = StackedValofNfa.pop();
-            FullNfa.getNfa().get(FullNfa.getNfa().size()-1).setAccpetState(true);
+        while (!speicialChars.isEmpty()) {	SpeicalCharOperation(); }
+        NFA completeNfa = StackedValofNfa.pop();
+        completeNfa.getNfa().get(completeNfa.getNfa().size() - 1).setAccpetState(true);
 
-            return FullNfa;
+        return completeNfa;
 
     }
 
