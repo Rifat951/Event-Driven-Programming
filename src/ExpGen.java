@@ -259,6 +259,30 @@ public class ExpGen {
         // val of nfa will be redirected over here in the dfafirstset
         dfafirstset.add(ParsedNfa.getNfa().getFirst());
 
+        //remove eclosures and initiate start state of dfa
+        EliminateETrans();
+        TransState dfastartstate = new TransState(dfesecondset, IdStates++);
+        tempDfa.getDfa().addLast(dfastartstate);
+        interStates.addLast(dfastartstate);
+
+        if(interStates.isEmpty()){
+            System.exit(1);
+        }
+        else {
+            while (!interStates.isEmpty()){
+                //lifo
+                TransState newTrnstate = interStates.removeLast();
+
+                for(Character inputchars : speicialChars){
+                    dfafirstset = new HashSet<TransState>();
+                    dfesecondset = new HashSet<TransState>();
+
+                    changeStates(inputchars, newTrnstate.getStates(), dfafirstset);
+                    EliminateETrans();
+
+                }
+            }
+        }
 
 
 
