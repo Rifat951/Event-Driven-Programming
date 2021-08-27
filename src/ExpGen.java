@@ -283,13 +283,17 @@ public class ExpGen {
                     TransState trnsDfa = null;
 
                     for (int startIndex = 0; startIndex < tempDfa.getDfa().size(); startIndex++) {
-
                         trnsDfa = tempDfa.getDfa().get(startIndex);
+                        if(trnsDfa.getStates().containsAll(dfesecondset)){
+                            isavailable = true;
+                            break;
+                        }
                     }
+
+
                 }
             }
-
         }
-        return DFA;
+        return tempDfa;
     }
 }
