@@ -7,17 +7,14 @@ import java.util.Stack;
 
 public class ExpGen {
 
-
     private static Stack<Character> speicialChars = new Stack<Character>();
     private static Stack<NFA> StackedValofNfa = new Stack<NFA>();
     private static  int IdStates = 0;
 
     private static void SpeicalCharOperation(){
 
-        char tempchar;
         if(ExpGen.speicialChars.size() > 0){
-
-            tempchar = speicialChars.pop();
+            char tempchar = speicialChars.pop();
             //usage of a switchcase
             switch (tempchar){
                 case('|'):
@@ -26,8 +23,11 @@ public class ExpGen {
                 case ('*'):
                     repeatation();
                     break;
+                case ('.'):
+                    concat();
+                    break;
                 default:
-                    System.out.println("Unknown Symbols");
+                    System.out.println("Unknown Symbols mara kha");
                     System.exit(1);
                     break;
             }
