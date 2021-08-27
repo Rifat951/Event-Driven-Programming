@@ -1,4 +1,4 @@
-import java.net.IDN;
+import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -27,7 +27,7 @@ public class ExpGen {
                     concat();
                     break;
                 default:
-                    System.out.println("Unknown Symbols mara kha");
+                    System.out.println("Unknown Symbols... error");
                     System.exit(1);
                     break;
             }
@@ -37,15 +37,27 @@ public class ExpGen {
     // */|/+ needs to be prioritized
 
     private static boolean OperandPrior(char firstchar, Character secondChar){
-        if( firstchar == secondChar || secondChar == '*' ||secondChar == '+' || secondChar == '|'){
-            return true;
-        }
-        else if(firstchar == '*' || firstchar == '+' || firstchar == '|'){
-            return false;
-        }
-        else {
-            return true;
-        }
+       if(firstchar == secondChar){
+           return true;
+       }
+       else if (firstchar == '*'){
+           return  false;
+       }
+       else if(secondChar == '*'){
+           return true;
+       }
+       else if (firstchar == '.'){
+           return  false;
+       }
+       else if(secondChar == '.'){
+           return true;
+       }
+       else if(firstchar == '|'){
+           return false;
+       }
+       else {
+           return true;
+       }
     }
 
 
@@ -71,6 +83,8 @@ public class ExpGen {
     
     
     private static Set<Character> input_val = new HashSet<Character>();
+
+   // private static Set<Character> input_val = new HashSet<Character>();
 
     public static NFA NfaConveter(String RegExpression){
 
@@ -149,11 +163,11 @@ public class ExpGen {
                         (firsttempval == ')' && isChar(secondtempval)) || (firsttempval == '*' && isChar(secondtempval)) ||
                         (firsttempval == '*' && secondtempval == '(') || (firsttempval == ')' && secondtempval == '(')){
 
-                    str = str + firsttempval + ".";
+                    str += firsttempval + ".";
 
                 }
                 else {
-                    str = str + firsttempval;
+                    str += firsttempval;
                 }
         }
 
@@ -195,23 +209,40 @@ public class ExpGen {
 
     public  static void repeatation(){
 
-        NFA tempNfa = StackedValofNfa.pop();
-        TransState StartStateRep = new TransState(IdStates++);
-        TransState EndStateRep = new TransState(IdStates++);
+        NFA tempnfa = StackedValofNfa.pop();
 
-        // same as merge method
-        StartStateRep.Transition(EndStateRep, 'e');
-        StartStateRep.Transition(tempNfa.getNfa().getFirst(),'e');
+        // Create states for star operation
+        TransState start = new TransState (IdStates++);
+        TransState end	= new TransState (IdStates++);
 
-        tempNfa.getNfa().getLast().Transition(EndStateRep,'e');
-        tempNfa.getNfa().getLast().Transition(tempNfa.getNfa().getFirst(),'e');
+        // Add transition to start and end state
+        start.Transition(end, 'e');
+        start.Transition(tempnfa.getNfa().getFirst(), 'e');
 
-        tempNfa.getNfa().addFirst(StartStateRep);
-        tempNfa.getNfa().addLast(EndStateRep);
+        tempnfa.getNfa().getLast().Transition(end, 'e');
+        tempnfa.getNfa().getLast().Transition(tempnfa.getNfa().getFirst(), 'e');
 
-        StackedValofNfa.push(tempNfa);
+        tempnfa.getNfa().addFirst(start);
+        tempnfa.getNfa().addLast(end);
+
+        // Put nfa back in the stackNfa
+        StackedValofNfa.push(tempnfa);
 
     }
+
+    private static void concat(){
+
+        NFA nfastate2 = StackedValofNfa.pop();
+        NFA nfastate1 = StackedValofNfa.pop();
+
+        nfastate1.getNfa().getLast().Transition(nfastate2.getNfa().getFirst(),'e');
+
+        for(TransState s : nfastate2.getNfa()){
+            nfastate1.getNfa().addLast(s);
+        }
+        StackedValofNfa.push(nfastate1);
+    }
+
 
     // implementing DFA
 
@@ -229,6 +260,7 @@ public class ExpGen {
         }
         while(!eliminateval.isEmpty()){
             TransState trns_new = eliminateval.pop();
+
             ArrayList<TransState> eclosure = trns_new.displayTransitionStates('e');
 
             for( TransState trns_second : eclosure){
@@ -260,63 +292,70 @@ public class ExpGen {
 
     public  static DFA DfaConverter(NFA ParsedNfa) {
 
-        DFA tempDfa = new DFA();
+        DFA dfa = new DFA ();
+
+        // Clearing all the states ID for the DFA
         IdStates = 0;
-        LinkedList<TransState> interStates = new LinkedList<TransState>();
 
-        //these sets will be used for storing the intermediate states of DFA
-        Set<TransState> dfafirstset = new HashSet<TransState>();
-        Set<TransState> dfesecondset = new HashSet<TransState>();
+        // Create an arrayList of unprocessed States
+        LinkedList <TransState> unprocessed = new LinkedList<TransState> ();
 
-        // val of nfa will be redirected over here in the dfafirstset
-        dfafirstset.add(ParsedNfa.getNfa().getFirst());
+        // Create sets
+        FirstSet = new HashSet <TransState> ();
+        SecondSet = new HashSet <TransState> ();
 
-        //remove eclosures and initiate start state of dfa
-        EliminateETrans();
-        TransState dfastartstate = new TransState(dfesecondset, IdStates++);
-        tempDfa.getDfa().addLast(dfastartstate);
-        interStates.addLast(dfastartstate);
+        // Add first state to the set1
+        FirstSet.add(ParsedNfa.getNfa().getFirst());
 
-        if (interStates.isEmpty()) {
-            System.exit(1);
-        } else {
-            while (!interStates.isEmpty()) {
-                //remove last element
-                TransState newTrnstate = interStates.removeLast();
+        // Run the first remove Epsilon the get states that
+        // run with epsilon
+        EliminateETrans ();
 
-                for (Character inputchars : speicialChars) {
-                    dfafirstset = new HashSet<TransState>();
-                    dfesecondset = new HashSet<TransState>();
+        // Create the start state of DFA and add to the stack
+        TransState dfaStart = new TransState (SecondSet, IdStates++);
 
-                    changeStates(inputchars, newTrnstate.getStates(), dfafirstset);
-                    EliminateETrans();
+        dfa.getDfa().addLast(dfaStart);
+        unprocessed.addLast(dfaStart);
 
-                    boolean isavailable = false;
-                    TransState trnsDfa = null;
+        // While there is elements in the stack
+        while (!unprocessed.isEmpty()) {
+            // Process and remove last state in stack
+            TransState state = unprocessed.removeLast();
 
-                    for (int startIndex = 0; startIndex < tempDfa.getDfa().size(); startIndex++) {
-                        trnsDfa = tempDfa.getDfa().get(startIndex);
-                        if(trnsDfa.getStates().containsAll(dfesecondset)){
-                            isavailable = true;
-                            break;
-                        }
+            // Check if input symbol
+            for (Character symbol : input_val) {
+                FirstSet = new HashSet<TransState> ();
+                SecondSet = new HashSet<TransState> ();
+
+                changeStates (symbol, state.getStates(), FirstSet);
+                EliminateETrans ();
+
+                boolean isavailable = false;
+                TransState st = null;
+
+                for (int i = 0 ; i < dfa.getDfa().size(); i++) {
+                    st = dfa.getDfa().get(i);
+
+                    if (st.getStates().containsAll(SecondSet)) {
+                        isavailable = true;
+                        break;
                     }
+                }
 
-                    if(!isavailable){
-                        TransState trns_latest = new TransState(dfesecondset, IdStates++);
-                         interStates.addLast(trns_latest);
-                         tempDfa.getDfa().addLast(trns_latest);
-                         newTrnstate.Transition(trns_latest, inputchars);
+                // Not in the DFA set, add it
+                if (!isavailable) {
+                    TransState p = new TransState (SecondSet, IdStates++);
+                    unprocessed.addLast(p);
+                    dfa.getDfa().addLast(p);
+                    state.Transition(p, symbol);
 
-                    }
-                    else {
-                        newTrnstate.Transition(trnsDfa, inputchars);
-                    }
-
-
+                    // Already in the DFA set
+                } else {
+                    state.Transition(st, symbol);
                 }
             }
         }
-        return tempDfa;
+        // Return the complete DFA
+        return dfa;
     }
 }

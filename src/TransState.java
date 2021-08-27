@@ -42,7 +42,7 @@ public class TransState {
             this.nextState.put(key , valueofTranStates);
         }
         valueofTranStates.add(traversal);
-        System.out.println(valueofTranStates);
+      //  System.out.println(valueofTranStates);
 
     }
     

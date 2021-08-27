@@ -7,45 +7,34 @@ import java.util.Scanner;
 
 public class Regex {
 
-    public static void main(String[] args) throws Exception {
+    private static Scanner scan;
+    private static String regularinput;
+
+    // Reads all the expressions in this arrayList
+    private static ArrayList<String> rgexpressions = new ArrayList<String>();
+
+    // stores de NFA
+    private static NFA nfa;
+
+    // stores the DFA
+    private static DFA dfa;
 
 
-        try {
-            File createfile = new File("D:/testpath/test1.txt");
-            if (createfile.createNewFile()) {
-                System.out.println("File created: " + createfile.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    // Getters and Setters
+    public static NFA getNfa() {
+        return nfa;
+    }
 
+    public static void setNfa(NFA nfa) {
+        Regex.nfa = nfa;
+    }
 
-        String writefile = setpathforInput();
-        writeintoffile(writefile);
-        System.out.println("File Created Successfully");
+    public static DFA getDfa() {
+        return dfa;
+    }
 
-        //D:\testpath\test.txt
-
-        File myObj = new File(setpathforInput());
-
-        Scanner s = new Scanner(myObj);
-
-
-//        // Read the regular expression
-        String regular = s.next();
-
-
-        //          System.out.println(regular);
-//
-//        // Read all the expressions to apply the regular expression
-        ArrayList<String> arr = new ArrayList<String>();
-        while (s.hasNext()) {
-            arr.add(s.next());
-        }
-        System.out.println(arr);
+    public static void setDfa(DFA dfa) {
+        Regex.dfa = dfa;
     }
 
     static String setpathforInput() {
@@ -83,5 +72,61 @@ public class Regex {
         }
         fos.close();
     }
+
+    public static void main(String[] args) throws Exception {
+        // Create a Scanner object
+        // only problem we have right now... the file needs to be created in by user first.... then the program will work
+        try {
+            File createfile = new File("D:/testpath/test1.txt");
+            if (createfile.createNewFile()) {
+                System.out.println("File created: " + createfile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+        String writefile = setpathforInput();
+        writeintoffile(writefile);
+        System.out.println("File Created Successfully");
+
+        //D:\testpath\test.txt
+
+        File myObj = new File(setpathforInput());
+
+        scan = new Scanner(myObj);
+
+        regularinput = scan.next();
+        System.out.println(regularinput);
+
+        while (scan.hasNext()) {
+            rgexpressions.add(scan.next());
+        }
+       // System.out.println(rgexpressions);
+
+        setNfa (ExpGen.NfaConveter(regularinput));
+        System.out.println("Ready");
+        //getNfa();
+
+        setDfa (ExpGen.DfaConverter (getNfa()));
+
+        for (String str : rgexpressions) {
+            if (RegExValidation.evaluate(getDfa(), str)) {
+                System.out.println ("True");
+            }
+            else
+            {
+                System.out.println ("False");
+            }
+        }
+    }
+
+
+
+
+
 
 }
