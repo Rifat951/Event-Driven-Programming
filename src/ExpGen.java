@@ -246,7 +246,7 @@ public class ExpGen {
 
     //pulll the nfa data to dfa ...
 
-    public  static DFA DfaConverter(NFA ParsedNfa){
+    public  static DFA DfaConverter(NFA ParsedNfa) {
 
         DFA tempDfa = new DFA();
         IdStates = 0;
@@ -265,15 +265,14 @@ public class ExpGen {
         tempDfa.getDfa().addLast(dfastartstate);
         interStates.addLast(dfastartstate);
 
-        if(interStates.isEmpty()){
+        if (interStates.isEmpty()) {
             System.exit(1);
-        }
-        else {
-            while (!interStates.isEmpty()){
+        } else {
+            while (!interStates.isEmpty()) {
                 //remove last element
                 TransState newTrnstate = interStates.removeLast();
 
-                for(Character inputchars : speicialChars){
+                for (Character inputchars : speicialChars) {
                     dfafirstset = new HashSet<TransState>();
                     dfesecondset = new HashSet<TransState>();
 
@@ -283,15 +282,14 @@ public class ExpGen {
                     boolean isavailable = false;
                     TransState trnsDfa = null;
 
-                    for(int startIndex = 0; startIndex < tempDfa.getDfa().size(); startIndex++){
+                    for (int startIndex = 0; startIndex < tempDfa.getDfa().size(); startIndex++) {
 
                         trnsDfa = tempDfa.getDfa().get(startIndex);
+                    }
                 }
             }
+
         }
-
-
-
         return DFA;
     }
 
