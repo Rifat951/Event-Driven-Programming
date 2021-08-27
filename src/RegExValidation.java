@@ -20,9 +20,19 @@ public class RegExValidation {
                 if(evalState == null){
                     break;
                 }
+                // provide transition with input
+                evalState = evalState.getNextState().get(str.charAt(index)).get(0);
+                System.out.println(evalState);
+            }
+            if(evalState != null && evalState.isAccpetState()){
+                return  true;
+            }
+            else {
+                return  false;
             }
         }
+        else {
+            return false;
+        }
     }
-
-
 }
