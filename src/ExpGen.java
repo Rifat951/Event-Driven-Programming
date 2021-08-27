@@ -270,7 +270,7 @@ public class ExpGen {
         }
         else {
             while (!interStates.isEmpty()){
-                //lifo
+                //remove last element
                 TransState newTrnstate = interStates.removeLast();
 
                 for(Character inputchars : speicialChars){
@@ -280,6 +280,12 @@ public class ExpGen {
                     changeStates(inputchars, newTrnstate.getStates(), dfafirstset);
                     EliminateETrans();
 
+                    boolean isavailable = false;
+                    TransState trnsDfa = null;
+
+                    for(int startIndex = 0; startIndex < tempDfa.getDfa().size(); startIndex++){
+
+                        trnsDfa = tempDfa.getDfa().get(startIndex);
                 }
             }
         }
