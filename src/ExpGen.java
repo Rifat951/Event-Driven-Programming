@@ -1,3 +1,4 @@
+import java.net.IDN;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -221,7 +222,7 @@ public class ExpGen {
             for( TransState trns_second : eclosure){
                 if(!SecondSet.contains(trns_second)){
                     SecondSet.add(trns_second);
-                    eliminateval.push(trns_second)
+                    eliminateval.push(trns_second);
                 }
             }
         }
@@ -239,6 +240,18 @@ public class ExpGen {
                 stateSet.add(trns_innerloop);
             }
         }
+    }
+
+    //pulll the nfa data to dfa ...
+
+    public  static DFA DfaConverter(NFA ParsedNfa){
+
+        DFA tempDfa = new DFA();
+
+        IdStates = 0;
+        LinkedList<TransState> interStates = new LinkedList<TransState>();
+
+        return DFA;
     }
 
 
