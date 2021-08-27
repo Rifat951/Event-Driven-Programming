@@ -290,6 +290,17 @@ public class ExpGen {
                         }
                     }
 
+                    if(!isavailable){
+                        TransState trns_latest = new TransState(dfesecondset, IdStates++);
+                         interStates.addLast(trns_latest);
+                         tempDfa.getDfa().addLast(trns_latest);
+                         newTrnstate.Transition(trns_latest, inputchars);
+
+                    }
+                    else {
+                        newTrnstate.Transition(trnsDfa, inputchars);
+                    }
+
 
                 }
             }

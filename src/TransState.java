@@ -80,7 +80,7 @@ public class TransState {
         return nextState;
     }
 
-    private boolean isAccpetState() {
+    public boolean isAccpetState() {
         return accpetState;
     }
 
