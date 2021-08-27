@@ -242,6 +242,8 @@ public class ExpGen {
         }
     }
 
+
+
     //pulll the nfa data to dfa ...
 
     public  static DFA DfaConverter(NFA ParsedNfa){
@@ -250,6 +252,16 @@ public class ExpGen {
 
         IdStates = 0;
         LinkedList<TransState> interStates = new LinkedList<TransState>();
+
+        //these sets will be used for storing the intermediate states of DFA
+        Set<TransState> dfafirstset = new HashSet<TransState>();
+        Set<TransState> dfesecondset = new HashSet<TransState>();
+
+        // val of nfa will be redirected over here in the dfafirstset
+        dfafirstset.add(ParsedNfa.getNfa().getFirst());
+
+
+
 
         return DFA;
     }
