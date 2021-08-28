@@ -20,11 +20,14 @@ public class ExpGen {
                 case('|'):
                     merge();
                     break;
-                case ('*'):
+                case ('+'):
                     repeatation();
                     break;
                 case ('.'):
                     concat();
+                    break;
+                case ('*'):
+                    repeatation();
                     break;
                 default:
                     System.out.println("Unknown Symbols... error");
@@ -46,8 +49,14 @@ public class ExpGen {
        else if(secondChar == '*'){
            return true;
        }
-       else if (firstchar == '.'){
+       else if (firstchar == '+'){
            return  false;
+       }
+       else if(secondChar == '+'){
+           return true;
+       }
+       else if(firstchar == '.'){
+           return false;
        }
        else if(secondChar == '.'){
            return true;
@@ -161,7 +170,9 @@ public class ExpGen {
             char secondtempval = RegExpression.charAt(indexofString+1);
                 if( (isChar(firsttempval) && isChar(secondtempval)) || (isChar(firsttempval) && secondtempval == '(') ||
                         (firsttempval == ')' && isChar(secondtempval)) || (firsttempval == '*' && isChar(secondtempval)) ||
-                        (firsttempval == '*' && secondtempval == '(') || (firsttempval == ')' && secondtempval == '(')){
+                        (firsttempval == '*' && secondtempval == '(') || (firsttempval == ')' && isChar(secondtempval)) ||
+                        (firsttempval == '+' && isChar(secondtempval)) || (firsttempval == '+' && secondtempval == '(') ||
+                        (firsttempval == ')' && isChar(secondtempval))) {
 
                     str += firsttempval + ".";
 
