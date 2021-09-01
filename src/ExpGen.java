@@ -101,6 +101,7 @@ public class ExpGen {
         RegExpression = ConcatInator (RegExpression);
 
         //(ab)*|c+
+        // input for letters lowercase
         input_val.add('a');
         input_val.add('b');
         input_val.add('c');
@@ -127,6 +128,47 @@ public class ExpGen {
         input_val.add('x');
         input_val.add('y');
         input_val.add('z');
+
+
+        //input for uppercase letters
+        input_val.add('A');
+        input_val.add('B');
+        input_val.add('C');
+        input_val.add('D');
+        input_val.add('E');
+        input_val.add('F');
+        input_val.add('G');
+        input_val.add('H');
+        input_val.add('I');
+        input_val.add('J');
+        input_val.add('K');
+        input_val.add('L');
+        input_val.add('M');
+        input_val.add('N');
+        input_val.add('O');
+        input_val.add('P');
+        input_val.add('Q');
+        input_val.add('R');
+        input_val.add('S');
+        input_val.add('T');
+        input_val.add('U');
+        input_val.add('V');
+        input_val.add('W');
+        input_val.add('X');
+        input_val.add('Y');
+        input_val.add('Z');
+
+        // input for numbers
+        input_val.add('0');
+        input_val.add('1');
+        input_val.add('2');
+        input_val.add('3');
+        input_val.add('4');
+        input_val.add('5');
+        input_val.add('6');
+        input_val.add('7');
+        input_val.add('8');
+        input_val.add('9');
 
         // remove all the elements from stacks
         StackedValofNfa.clear();
@@ -180,6 +222,17 @@ public class ExpGen {
                 inputchar == 'k' || inputchar == 'l' || inputchar == 'm' ||  inputchar == 'n' || inputchar == 'o'||
                 inputchar == 'p' || inputchar == 'q' || inputchar == 'r' ||  inputchar == 's' || inputchar == 't' ||
                 inputchar == 'u' || inputchar == 'v' || inputchar == 'w' ||  inputchar == 'x' || inputchar == 'y' || inputchar == 'z' ){
+            return true;
+        }
+        else if (inputchar == 'A' || inputchar == 'B' || inputchar == 'C' ||  inputchar == 'D' || inputchar == 'E'||
+                inputchar == 'F' || inputchar == 'G' || inputchar == 'H' ||  inputchar == 'I' || inputchar == 'J'||
+                inputchar == 'K' || inputchar == 'L' || inputchar == 'M' ||  inputchar == 'N' || inputchar == 'O'||
+                inputchar == 'P' || inputchar == 'Q' || inputchar == 'R' ||  inputchar == 'S' || inputchar == 'T' ||
+                inputchar == 'U' || inputchar == 'V' || inputchar == 'W' ||  inputchar == 'X' || inputchar == 'Y' || inputchar == 'Z'){
+             return true;
+        }
+        else if(inputchar == '0' || inputchar == '1' || inputchar == '2' ||  inputchar == '3' || inputchar == '4'||
+                inputchar == '5' || inputchar == '6' || inputchar == '7' ||  inputchar == '8' || inputchar == '9'){
             return true;
         }
         else {
