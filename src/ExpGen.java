@@ -104,6 +104,29 @@ public class ExpGen {
         input_val.add('a');
         input_val.add('b');
         input_val.add('c');
+        input_val.add('d');
+        input_val.add('e');
+        input_val.add('f');
+        input_val.add('g');
+        input_val.add('h');
+        input_val.add('i');
+        input_val.add('j');
+        input_val.add('k');
+        input_val.add('l');
+        input_val.add('m');
+        input_val.add('n');
+        input_val.add('o');
+        input_val.add('p');
+        input_val.add('q');
+        input_val.add('r');
+        input_val.add('s');
+        input_val.add('t');
+        input_val.add('u');
+        input_val.add('v');
+        input_val.add('w');
+        input_val.add('x');
+        input_val.add('y');
+        input_val.add('z');
 
         // remove all the elements from stacks
         StackedValofNfa.clear();
@@ -152,7 +175,11 @@ public class ExpGen {
 
 
     public static boolean isChar(char inputchar){
-        if(inputchar == 'a' || inputchar == 'b' || inputchar == 'c' || inputchar == 'e' ) {
+        if(inputchar == 'a' || inputchar == 'b' || inputchar == 'c' ||  inputchar == 'd' || inputchar == 'e'||
+                inputchar == 'f' || inputchar == 'g' || inputchar == 'h' ||  inputchar == 'i' || inputchar == 'j'||
+                inputchar == 'k' || inputchar == 'l' || inputchar == 'm' ||  inputchar == 'n' || inputchar == 'o'||
+                inputchar == 'p' || inputchar == 'q' || inputchar == 'r' ||  inputchar == 's' || inputchar == 't' ||
+                inputchar == 'u' || inputchar == 'v' || inputchar == 'w' ||  inputchar == 'x' || inputchar == 'y' || inputchar == 'z' ){
             return true;
         }
         else {
@@ -197,11 +224,11 @@ public class ExpGen {
         TransState endstate = new TransState (IdStates++);
 
         // Set transition table begin and end of each SubNfa
-        startstate.Transition(firstCharofNfa.getNfa().getFirst(),'e');
-        startstate.Transition(secondCharofNfa.getNfa().getFirst(),'e' );
+        startstate.Transition(firstCharofNfa.getNfa().getFirst(),'!');
+        startstate.Transition(secondCharofNfa.getNfa().getFirst(),'!' );
         //endstate
-        firstCharofNfa.getNfa().getLast().Transition(endstate,'e');
-        secondCharofNfa.getNfa().getLast().Transition(endstate,'e');
+        firstCharofNfa.getNfa().getLast().Transition(endstate,'!');
+        secondCharofNfa.getNfa().getLast().Transition(endstate,'!');
 
 
         //insert all the start states to end states and  the states from second to first and in order
@@ -227,11 +254,11 @@ public class ExpGen {
         TransState end	= new TransState (IdStates++);
 
         // Add transition to start and end state
-        start.Transition(end, 'e');
-        start.Transition(tempnfa.getNfa().getFirst(), 'e');
+        start.Transition(end, '!');
+        start.Transition(tempnfa.getNfa().getFirst(), '!');
 
-        tempnfa.getNfa().getLast().Transition(end, 'e');
-        tempnfa.getNfa().getLast().Transition(tempnfa.getNfa().getFirst(), 'e');
+        tempnfa.getNfa().getLast().Transition(end, '!');
+        tempnfa.getNfa().getLast().Transition(tempnfa.getNfa().getFirst(), '!');
 
         tempnfa.getNfa().addFirst(start);
         tempnfa.getNfa().addLast(end);
@@ -246,7 +273,7 @@ public class ExpGen {
         NFA nfastate2 = StackedValofNfa.pop();
         NFA nfastate1 = StackedValofNfa.pop();
 
-        nfastate1.getNfa().getLast().Transition(nfastate2.getNfa().getFirst(),'e');
+        nfastate1.getNfa().getLast().Transition(nfastate2.getNfa().getFirst(),'!');
 
         for(TransState s : nfastate2.getNfa()){
             nfastate1.getNfa().addLast(s);
@@ -272,7 +299,7 @@ public class ExpGen {
         while(!eliminateval.isEmpty()){
             TransState trns_new = eliminateval.pop();
 
-            ArrayList<TransState> eclosure = trns_new.displayTransitionStates('e');
+            ArrayList<TransState> eclosure = trns_new.displayTransitionStates('!');
 
             for( TransState trns_second : eclosure){
                 if(!SecondSet.contains(trns_second)){

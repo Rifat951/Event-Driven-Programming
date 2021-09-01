@@ -6,8 +6,8 @@ public class NFA {
     //constructor for NFA
     private LinkedList<TransState> nfa;
 
-    public NFA(){
-        this.setNfa(new LinkedList<TransState> ());
+    public NFA() {
+        this.setNfa(new LinkedList<TransState>());
         this.getNfa().clear();
     }
 

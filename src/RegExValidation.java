@@ -7,7 +7,7 @@ public class RegExValidation {
           System.out.println(str);
 
         // acceptation for empty string
-        if(str.compareTo("e")==0){
+        if(str.compareTo("!")==0){
             if(evalState.isAccpetState()){
                 return  true;
             }
