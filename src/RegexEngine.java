@@ -1,11 +1,10 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Regex {
+public class RegexEngine {
 
     private static Scanner scan;
     private static String regularinput;
@@ -26,7 +25,7 @@ public class Regex {
     }
 
     public static void setNfa(NFA nfa) {
-        Regex.nfa = nfa;
+        RegexEngine.nfa = nfa;
     }
 
     public static DFA getDfa() {
@@ -34,7 +33,7 @@ public class Regex {
     }
 
     public static void setDfa(DFA dfa) {
-        Regex.dfa = dfa;
+        RegexEngine.dfa = dfa;
     }
 
     static String setpathforInput() {
