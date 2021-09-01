@@ -19,5 +19,7 @@ public void computeFeatureVectorForToken(int i) {
 // from here we can see.. toke, currenttoken, lexer can be used.
 // Need to find more details about this lexer
 
+// A Lexer object uses simplified match() and error recovery mechanisms in the interest of speed. RegexEngine also has a match function. I think we can use lexer if required
+// we have come across something called jflex. jflex JFlex, the scanner/lexer generator for Java (we dont need maven). Jflex is a thir party which is not allowed
 
 
