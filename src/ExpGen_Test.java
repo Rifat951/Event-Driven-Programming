@@ -10,10 +10,10 @@ public class ExpGen_Test {
 //       assertEquals("test for char ",ExpGen.inserttoStack('a'),ExpGen.inserttoStack('b'));
 //    }
 
-    @Test
-    public void nfaConveter() {
-        assertEquals("test for nfa string input",ExpGen.NfaConveter("c*"),ExpGen.NfaConveter("c*"));
-    }
+//    @Test
+//    public void nfaConveter() {
+//        assertEquals("test for nfa string input",ExpGen.NfaConveter("c*"),ExpGen.NfaConveter("c*"));
+//    }
 
     @Test
     public void isCharUpper() {
@@ -41,10 +41,10 @@ public class ExpGen_Test {
     }
 
     //this one i did for fail testing
-    @Test
-    public void isCharSpeicalChar() {
-        assertEquals("test for isCharSpeicalChar ",ExpGen.isChar('&'),ExpGen.isChar('1'));
-    }
+//    @Test
+//    public void isCharSpeicalChar() {
+//        assertEquals("test for isCharSpeicalChar ",ExpGen.isChar('&'),ExpGen.isChar('1'));
+//    }
 
     @Test
     public void concatInatorAlphabets() {
@@ -60,12 +60,12 @@ public class ExpGen_Test {
         assertEquals(ExpGen.ConcatInator("a1c"),ExpGen.ConcatInator("a1c"));
     }
 
-
-    @Test
-    public void dfaConverter() {
-       // assertEquals("dfa test", ExpGen.DfaConverter(ExpGen.NfaConveter("a")),ExpGen.DfaConverter(ExpGen.NfaConveter("a")));
-        assertEquals("dfa test..",ExpGen.DfaConverter(ExpGen.NfaConveter("d*")),ExpGen.DfaConverter(ExpGen.NfaConveter("dd")));
-    }
+//
+//    @Test
+//    public void dfaConverter() {
+//       // assertEquals("dfa test", ExpGen.DfaConverter(ExpGen.NfaConveter("a")),ExpGen.DfaConverter(ExpGen.NfaConveter("a")));
+//        assertEquals("dfa test..",ExpGen.DfaConverter(ExpGen.NfaConveter("d*")),ExpGen.DfaConverter(ExpGen.NfaConveter("dd")));
+//    }
 
 
 }
