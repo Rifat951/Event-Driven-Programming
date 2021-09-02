@@ -1,4 +1,3 @@
-import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -207,10 +206,14 @@ public class ExpGen {
 
 
         while (!speicialChars.isEmpty()) {	SpeicalCharOperation(); }
+
+     //   System.out.println(StackedValofNfa);
+
         NFA completeNfa = StackedValofNfa.pop();
         completeNfa.getNfa().get(completeNfa.getNfa().size() - 1).setAccpetState(true);
 
-        System.out.println(completeNfa);
+//        System.out.println(completeNfa.getClass().getSimpleName());
+//        System.out.println("nfa"+completeNfa);
         return completeNfa;
 
     }
@@ -384,6 +387,7 @@ public class ExpGen {
 
     public  static DFA DfaConverter(NFA ParsedNfa) {
 
+       // System.out.println("parsed nfa " + ParsedNfa);
         DFA dfa = new DFA ();
 
         // Clearing all the states ID for the DFA

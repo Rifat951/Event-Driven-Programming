@@ -35,6 +35,9 @@ public class TransState {
 
     public void Transition( TransState traversal, char key ){
 
+//        System.out.println("traverlsal.."+traversal);
+//        System.out.println("key..."+key);
+
         ArrayList<TransState> valueofTranStates = this.nextState.get(key);
 
         if(valueofTranStates == null){
@@ -50,6 +53,7 @@ public class TransState {
 
     // constructor of TranState for NFA
     public TransState(int idOfStates){
+       // System.out.println("id.."+idOfStates);
         this.setStates(statesdfa);
 //        this.setIdOfStates(IdOfStates);
         this.setNextState(new HashMap<Character, ArrayList<TransState>>());
@@ -91,6 +95,7 @@ public class TransState {
 
 
     public ArrayList<TransState> displayTransitionStates(char inputchar){
+     //   System.out.println("Displ.."+inputchar);
         if(this.nextState.get(inputchar) == null ){
             return new ArrayList<TransState>();
         }

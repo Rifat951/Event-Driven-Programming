@@ -46,7 +46,7 @@ public class RegexEngine {
 
     }
 
-    static void writeintoffile(String path) throws Exception {
+    public static void writeintoffile(String path) throws Exception {
         Scanner read = new Scanner(System.in);
         FileOutputStream fos = new FileOutputStream(path);
         System.out.println("Enter character  ('!') to stop writing : ");
@@ -72,9 +72,7 @@ public class RegexEngine {
         fos.close();
     }
 
-    public static void main(String[] args) throws Exception {
-        // Create a Scanner object
-        // only problem we have right now... the file needs to be created in by user first.... then the program will work
+    public static void fileOpener(){
         try {
             File createfile = new File("D:/testpath/test1.txt");
             if (createfile.createNewFile()) {
@@ -86,7 +84,15 @@ public class RegexEngine {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
 
+    public static void main(String[] args) throws Exception {
+        // Create a Scanner object
+        // only problem we have right now... the file needs to be created in by user first.... then the program will work
+
+
+
+        fileOpener();
 
         String writefile = setpathforInput();
         writeintoffile(writefile);
