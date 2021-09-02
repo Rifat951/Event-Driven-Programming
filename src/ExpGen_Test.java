@@ -47,8 +47,17 @@ public class ExpGen_Test {
     }
 
     @Test
-    public void concatInator() {
+    public void concatInatorAlphabets() {
         assertEquals(ExpGen.ConcatInator("abc"),ExpGen.ConcatInator("abc"));
+    }
+    @Test
+    public void concatInatorforNumbers() {
+        assertEquals(ExpGen.ConcatInator("001"),ExpGen.ConcatInator("001"));
+    }
+
+    @Test
+    public void concatInatorNumandAlpha() {
+        assertEquals(ExpGen.ConcatInator("a1c"),ExpGen.ConcatInator("a1c"));
     }
 
 
