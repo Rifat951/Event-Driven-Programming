@@ -1,0 +1,5 @@
+Since our program is based on default package, in order to run Junit we had to declare the Junit in default package (which is of course a bad practice)
+P.S. Junit4 was used for this assignment
+
+1. we tried to dsiplay how junit works. However, further improvements are required
+2. It would be better if we got some hands on expreience with Junit.
