@@ -210,6 +210,7 @@ public class ExpGen {
         NFA completeNfa = StackedValofNfa.pop();
         completeNfa.getNfa().get(completeNfa.getNfa().size() - 1).setAccpetState(true);
 
+        System.out.println(completeNfa);
         return completeNfa;
 
     }
