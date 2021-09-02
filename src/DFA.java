@@ -15,7 +15,8 @@ public class DFA {
         this.getDfa().clear();
     }
 
-    public LinkedList<TransState> getDfa() {
+    public LinkedList<TransState> getDfa()
+    {
         return dfa;
     }
 

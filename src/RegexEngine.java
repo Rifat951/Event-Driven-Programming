@@ -37,7 +37,7 @@ public class RegexEngine {
         RegexEngine.dfa = dfa;
     }
 
-    static String setpathforInput() {
+    public static String setpathforInput() {
         Scanner read = new Scanner(System.in);
 
         System.out.println("Enter the Path You want to Set \n\t");
@@ -74,11 +74,10 @@ public class RegexEngine {
         return true;
     }
 
-    public static boolean input(File filename) throws FileNotFoundException {
+    public static void input(File filename) throws FileNotFoundException {
         scan = new Scanner(filename);
         regularinput = scan.next();
         System.out.println(regularinput);
-        return true;
     }
 
     public static boolean fileOpener(){
@@ -101,7 +100,6 @@ public class RegexEngine {
         // only problem we have right now... the file needs to be created in by user first.... then the program will work
 
         fileOpener();
-
         String writefile = setpathforInput();
         writeintoffile(writefile);
         System.out.println("File Created Successfully");
