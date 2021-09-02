@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class RegexEngine {
 
     }
 
-    public static void writeintoffile(String path) throws Exception {
+    public static boolean writeintoffile(String path) throws Exception {
         Scanner read = new Scanner(System.in);
         FileOutputStream fos = new FileOutputStream(path);
         System.out.println("Enter character  ('!') to stop writing : ");
@@ -70,9 +71,17 @@ public class RegexEngine {
             fos.write((byte) ('\n'));
         }
         fos.close();
+        return true;
     }
 
-    public static void fileOpener(){
+    public static boolean input(File filename) throws FileNotFoundException {
+        scan = new Scanner(filename);
+        regularinput = scan.next();
+        System.out.println(regularinput);
+        return true;
+    }
+
+    public static boolean fileOpener(){
         try {
             File createfile = new File("D:/testpath/test1.txt");
             if (createfile.createNewFile()) {
@@ -84,13 +93,12 @@ public class RegexEngine {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        return true;
     }
 
     public static void main(String[] args) throws Exception {
         // Create a Scanner object
         // only problem we have right now... the file needs to be created in by user first.... then the program will work
-
-
 
         fileOpener();
 
@@ -101,15 +109,15 @@ public class RegexEngine {
         //D:\testpath\test.txt
 
         File myObj = new File(setpathforInput());
+        //call the scanner and read next lines
 
-        scan = new Scanner(myObj);
-
-        regularinput = scan.next();
-        System.out.println(regularinput);
+        input(myObj);
 
         while (scan.hasNext()) {
             rgexpressions.add(scan.next());
         }
+
+
        // System.out.println(rgexpressions);
 
         setNfa (ExpGen.NfaConveter(regularinput));
