@@ -2,9 +2,11 @@ public class RegExValidation {
 
     public static boolean evaluate(DFA dfa, String str){
 
+        System.out.println("dfa.getdfa"+dfa.getDfa());
+        System.out.println("dfa.getdfa.getfirst"+dfa.getDfa().getFirst());
         TransState evalState = dfa.getDfa().getFirst();
-//        System.out.println(evalState.toString());
-          System.out.println(str);
+       System.out.println("evalstate"+evalState.toString());
+          System.out.println("test str .." + str);
 
         // acceptation for empty string
         if(str.compareTo("!")==0){
